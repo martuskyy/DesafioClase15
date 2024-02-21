@@ -1,8 +1,9 @@
 ﻿using SistemaGestionEntities;
 using SistemaGestionData;
+using System.Data.SqlClient;
 namespace SistemaGestionBussiness
 {
-    public static class VentaBussiness
+    public class VentaBussiness
     {
         public static List<Venta> ListarVentas()
         {
@@ -13,5 +14,7 @@ namespace SistemaGestionBussiness
         {
             return VentaData.ObtenerVentas(id);
         }
+
+        
     }
 }

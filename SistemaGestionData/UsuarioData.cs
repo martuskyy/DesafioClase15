@@ -91,6 +91,7 @@ namespace SistemaGestionData
                 command.Parameters.AddWithValue("clave", usuario.Clave);
                 command.Parameters.AddWithValue("email", usuario.Email);
                 connection.Open();
+                command.ExecuteNonQuery();
             }
         }
 
@@ -110,6 +111,7 @@ namespace SistemaGestionData
                 command.Parameters.AddWithValue("clave", usuario.Clave);
                 command.Parameters.AddWithValue("email", usuario.Email);
                 connection.Open();
+                command.ExecuteNonQuery();
             }
         }
 
@@ -123,6 +125,7 @@ namespace SistemaGestionData
                 command.Parameters.AddWithValue("id", id);
 
                 connection.Open();
+                command.ExecuteNonQuery();
             }
         }
     }

@@ -8,7 +8,7 @@ using SistemaGestionEntities;
 
 namespace SistemaGestionData
 {
-    public static class ProductoVendidoData
+    public class ProductoVendidoData
     {
         private static string connectionString;
 
@@ -90,6 +90,7 @@ namespace SistemaGestionData
                 command.Parameters.AddWithValue("stock", productoVendido.Stock);
                 command.Parameters.AddWithValue("idVenta", productoVendido.IdVenta);
                 connection.Open();
+                command.ExecuteNonQuery();
             }
         }
 
@@ -106,20 +107,22 @@ namespace SistemaGestionData
                 command.Parameters.AddWithValue("stock", productoVendido.Stock);
                 command.Parameters.AddWithValue("idVenta", productoVendido.IdVenta);
                 connection.Open();
+                command.ExecuteNonQuery();
             }
         }
 
 
-        public static void EliminarProductoVendido(int id)
+        public static void EliminarProductoVendido(int idProducto)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "DELETE FROM ProductoVendido WHERE id = @id";
+                string query = "DELETE FROM ProductoVendido WHERE idProducto = @idProducto";
                 SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("id", id);
+                command.Parameters.AddWithValue("idProducto", idProducto);
 
                 connection.Open();
+                command.ExecuteNonQuery();
             }
-        }
+        }        
     }
 }

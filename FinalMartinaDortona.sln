@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPISistemaGestion", "WebAPISistemaGestion\WebAPISistemaGestion.csproj", "{DDC58F2E-6551-4992-A9F2-FBE42AA8CF4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPISistemaGestion", "WebAPISistemaGestion\WebAPISistemaGestion.csproj", "{DDC58F2E-6551-4992-A9F2-FBE42AA8CF4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaGestionEntities", "SistemaGestionEntities\SistemaGestionEntities.csproj", "{B891BF0B-E8BC-4575-A3AC-C3DD113BE8A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SistemaGestionEntities", "SistemaGestionEntities\SistemaGestionEntities.csproj", "{B891BF0B-E8BC-4575-A3AC-C3DD113BE8A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaGestionData", "SistemaGestionData\SistemaGestionData.csproj", "{0BB24B0E-F5A2-4625-85C4-6E134D441D15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SistemaGestionData", "SistemaGestionData\SistemaGestionData.csproj", "{0BB24B0E-F5A2-4625-85C4-6E134D441D15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaGestionBussiness", "SistemaGestionBussiness\SistemaGestionBussiness.csproj", "{FF844870-656A-4F86-93E3-A2DEACB22BC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SistemaGestionBussiness", "SistemaGestionBussiness\SistemaGestionBussiness.csproj", "{FF844870-656A-4F86-93E3-A2DEACB22BC6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

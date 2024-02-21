@@ -8,7 +8,7 @@ using SistemaGestionEntities;
 
 namespace SistemaGestionData
 {
-    public static class VentaData
+    public class VentaData
     {
         private static string connectionString;
 
@@ -86,6 +86,7 @@ namespace SistemaGestionData
                 command.Parameters.AddWithValue("comentario", venta.Comentario);
                 command.Parameters.AddWithValue("idUsuario", venta.IdUsuario);
                 connection.Open();
+                command.ExecuteNonQuery();
             }
         }
 
@@ -101,6 +102,7 @@ namespace SistemaGestionData
                 command.Parameters.AddWithValue("comentario", venta.Comentario);
                 command.Parameters.AddWithValue("idUsuario", venta.IdUsuario);
                 connection.Open();
+                command.ExecuteNonQuery();
             }
         }
 
@@ -114,6 +116,67 @@ namespace SistemaGestionData
                 command.Parameters.AddWithValue("id", id);
 
                 connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public bool AgregarNuevaVenta(int idUsuario, List<Producto> productos)
+        {
+            string comentarios = string.Join("-", productos.Select(p => p.Descripcion));
+
+            int ventaId;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "INSERT INTO Venta (Comentario, IdUsuario) VALUES (@comentario, @idUsuario); SELECT SCOPE_IDENTITY();";
+                    command.Parameters.AddWithValue("@comentario", comentarios);
+                    command.Parameters.AddWithValue("@idUsuario", idUsuario);
+                    ventaId = Convert.ToInt32(command.ExecuteScalar());
+                }
+            }
+
+            MarcarComoVendidos(productos, ventaId);
+            ActualizarStockVendidos(productos);
+
+            return true;
+        }
+
+        private void MarcarComoVendidos(List<Producto> productos, int idVenta)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                foreach (var producto in productos)
+                {
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "INSERT INTO ProductoVendido (IdProducto, IdVenta, Stock) VALUES (@idProducto, @idVenta, @stock)";
+                        command.Parameters.AddWithValue("@idProducto", producto.Id);
+                        command.Parameters.AddWithValue("@idVenta", idVenta);
+                        command.Parameters.AddWithValue("@stock", producto.Stock);
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
+
+        private void ActualizarStockVendidos(List<Producto> productos)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                foreach (var producto in productos)
+                {
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "UPDATE Producto SET Stock = Stock - @stock WHERE Id = @idProducto";
+                        command.Parameters.AddWithValue("@stock", producto.Stock);
+                        command.Parameters.AddWithValue("@idProducto", producto.Id);
+                        command.ExecuteNonQuery();
+                    }
+                }
             }
         }
     }

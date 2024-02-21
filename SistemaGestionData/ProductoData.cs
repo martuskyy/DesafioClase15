@@ -97,6 +97,7 @@ namespace SistemaGestionData
                 command.Parameters.AddWithValue("stock", producto.Stock);
                 command.Parameters.AddWithValue("idUsuario", producto.IdUsuario);
                 connection.Open();
+                command.ExecuteNonQuery();
             }
         }
 
@@ -116,6 +117,7 @@ namespace SistemaGestionData
                 command.Parameters.AddWithValue("stock", producto.Stock);
                 command.Parameters.AddWithValue("idUsuario", producto.IdUsuario);
                 connection.Open();
+                command.ExecuteNonQuery();
             }
         }
 
@@ -129,6 +131,7 @@ namespace SistemaGestionData
                 command.Parameters.AddWithValue("id", id);
 
                 connection.Open();
+                command.ExecuteNonQuery();
             }
         }
     }
