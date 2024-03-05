@@ -14,7 +14,7 @@ namespace SistemaGestionData
 
         static VentaData()
         {
-            VentaData.connectionString = "Server=.; Database=coderhouse; Trusted_Connection=True;";
+            VentaData.connectionString = "Server=.; Database=master; Trusted_Connection=True;";
         }
 
         public static List<Venta> ListarVentas()

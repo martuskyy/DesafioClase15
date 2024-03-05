@@ -10,10 +10,10 @@ namespace WebAPISistemaGestion.Controllers
     [Route("api/[controller]")]
     public class UsuarioController : Controller
     {
-        private static string connectionString = "Server=.; Database=coderhouse; Trusted_Connection=True;";
+        private static string connectionString = "Server=.; Database=master; Trusted_Connection=True;";
 
-        [HttpGet("iniciar sesion/{nombreUsuario}/{clave")]
-        public IActionResult IniciarSesion(string nombreUsuario, string clave)
+        [HttpGet("iniciarSesion/{nombreUsuario}/{clave")]
+        private IActionResult IniciarSesion(string nombreUsuario, string clave)
         {
             string query = "SELECT * FROM Usuarios WHERE NombreUsuario = @NombreUsuario AND Contrasena = @Contrasena";
 
@@ -46,8 +46,8 @@ namespace WebAPISistemaGestion.Controllers
             }
         }
 
-        [HttpGet("traer/{nombreUsuario}")]
-        public IActionResult TraerUsuario(string nombreUsuario)
+        [HttpGet("traerUsuario/{nombreUsuario}")]
+        private IActionResult TraerUsuario(string nombreUsuario)
         {
             string query = "SELECT * FROM Usuarios WHERE NombreUsuario = @NombreUsuario";
 
@@ -90,8 +90,8 @@ namespace WebAPISistemaGestion.Controllers
             }
         }
 
-        [HttpPost("crear")]
-        public IActionResult CrearUsuario(Usuario usuario)
+        [HttpPost("crearUsuario")]
+        private IActionResult CrearUsuario(Usuario usuario)
         {
             if (string.IsNullOrEmpty(usuario.Nombre) || string.IsNullOrEmpty(usuario.Apellido) || string.IsNullOrEmpty(usuario.NombreUsuario) ||
                 string.IsNullOrEmpty(usuario.Clave) || string.IsNullOrEmpty(usuario.Email))
@@ -116,8 +116,8 @@ namespace WebAPISistemaGestion.Controllers
             }
         }
 
-        [HttpPut("modificar/{id}")]
-        public IActionResult ModificarUsuarioPorId(int id, [FromBody] Usuario usuario)
+        [HttpPut("modificarUsuario/{id}")]
+        private IActionResult ModificarUsuarioPorId(int id, [FromBody] Usuario usuario)
         {
             try
             {
@@ -130,8 +130,8 @@ namespace WebAPISistemaGestion.Controllers
             }
         }
 
-        [HttpDelete("eliminar/{id}")]
-        public IActionResult EliminarUsuario(int id)
+        [HttpDelete("eliminarUsuario/{id}")]
+        private IActionResult EliminarUsuario(int id)
         {
             try
             {

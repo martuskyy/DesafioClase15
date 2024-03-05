@@ -6,8 +6,8 @@ namespace WebAPISistemaGestion.Controllers
     [Route("api/[controller]")]
     public class NombreAPIController : Controller
     {
-        [HttpGet("nombre")]
-        public string ObtenerNombreAPI()
+        [HttpGet("nombreAPI")]
+        private string ObtenerNombreAPI()
         {
             return "martusky's app";
         }

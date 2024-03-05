@@ -14,7 +14,7 @@ namespace SistemaGestionData
 
         static ProductoVendidoData()
         {
-            ProductoVendidoData.connectionString = "Server=.; Database=coderhouse; Trusted_Connection=True;";
+            ProductoVendidoData.connectionString = "Server=.; Database=master; Trusted_Connection=True;";
         }
 
         public static List<ProductoVendido> ListarProductosVendidos()

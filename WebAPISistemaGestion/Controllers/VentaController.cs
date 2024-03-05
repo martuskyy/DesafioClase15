@@ -5,10 +5,12 @@ using System.Net;
 
 namespace WebAPISistemaGestion.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class VentaController : Controller
     {
-        [HttpGet("traer")]
-        public IActionResult TraerVentas()
+        [HttpGet("traerVenta")]
+        private IActionResult TraerVentas()
         {
             try
             {
@@ -21,8 +23,8 @@ namespace WebAPISistemaGestion.Controllers
             }
         }
 
-        [HttpPost("crear/{idUsuario}")]
-        public IActionResult CrearVenta(int idUsuario, [FromBody] List<Producto> productos)
+        [HttpPost("crearVenta/{idUsuario}")]
+        private IActionResult CrearVenta(int idUsuario, [FromBody] List<Producto> productos)
         {
             if (productos.Count == 0)
             {
@@ -49,8 +51,8 @@ namespace WebAPISistemaGestion.Controllers
             }
         }
 
-        [HttpDelete("eliminar/{id}")]
-        public IActionResult EliminarVenta(int id)
+        [HttpDelete("eliminarVenta/{id}")]
+        private IActionResult EliminarVenta(int id)
         {
             if(id<0)
             {

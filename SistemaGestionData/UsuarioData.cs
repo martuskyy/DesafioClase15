@@ -9,7 +9,7 @@ namespace SistemaGestionData
 
         static UsuarioData()
         {
-            UsuarioData.connectionString = "Server=.; Database=coderhouse; Trusted_Connection=True;";
+            UsuarioData.connectionString = "Server=.; Database=master; Trusted_Connection=True;";
         }
 
         public static List<Usuario> ListarUsuarios()
