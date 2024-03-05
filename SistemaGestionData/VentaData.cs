@@ -106,7 +106,6 @@ namespace SistemaGestionData
             }
         }
 
-
         public static void EliminarVenta(int id)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -138,7 +137,7 @@ namespace SistemaGestionData
             }
 
             MarcarComoVendidos(productos, ventaId);
-            ActualizarStockVendidos(productos);
+            RestarStockVendidos(productos);
 
             return true;
         }
@@ -162,7 +161,7 @@ namespace SistemaGestionData
             }
         }
 
-        private void ActualizarStockVendidos(List<Producto> productos)
+        private void RestarStockVendidos(List<Producto> productos)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -171,7 +170,25 @@ namespace SistemaGestionData
                 {
                     using (SqlCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = "UPDATE Producto SET Stock = Stock - @stock WHERE Id = @idProducto";
+                        command.CommandText = "UPDATE Producto SET Stock -= @stock WHERE Id = @idProducto";
+                        command.Parameters.AddWithValue("@stock", producto.Stock);
+                        command.Parameters.AddWithValue("@idProducto", producto.Id);
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
+
+        private void SumarStockVendidos(List<Producto> productos)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                foreach (var producto in productos)
+                {
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "UPDATE Producto SET Stock += @stock WHERE Id = @idProducto";
                         command.Parameters.AddWithValue("@stock", producto.Stock);
                         command.Parameters.AddWithValue("@idProducto", producto.Id);
                         command.ExecuteNonQuery();

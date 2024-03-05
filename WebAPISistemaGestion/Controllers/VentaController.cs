@@ -7,7 +7,21 @@ namespace WebAPISistemaGestion.Controllers
 {
     public class VentaController : Controller
     {
-        [HttpPost("idUsuario")]
+        [HttpGet("traer")]
+        public IActionResult TraerVentas()
+        {
+            try
+            {
+                VentaData.ListarVentas();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return Conflict(new { message = ex.Message, status = HttpStatusCode.Conflict });
+            }
+        }
+
+        [HttpPost("crear/{idUsuario}")]
         public IActionResult CrearVenta(int idUsuario, [FromBody] List<Producto> productos)
         {
             if (productos.Count == 0)
@@ -17,8 +31,8 @@ namespace WebAPISistemaGestion.Controllers
 
             try
             {
-                VentaData ventaService = new VentaData();
-                bool ventaAgregada = ventaService.AgregarNuevaVenta(idUsuario, productos);
+                VentaData venta = new VentaData();
+                bool ventaAgregada = venta.AgregarNuevaVenta(idUsuario, productos);
 
                 if (ventaAgregada)
                 {
@@ -35,5 +49,36 @@ namespace WebAPISistemaGestion.Controllers
             }
         }
 
+        [HttpDelete("eliminar/{id}")]
+        public IActionResult EliminarVenta(int id)
+        {
+            if(id<0)
+            {
+                return BadRequest(new { mensaje = "El id de la venta no puede ser menor que cero", status = HttpStatusCode.BadRequest });
+            }
+
+            try
+            {
+                Venta venta = VentaData.ObtenerVentas(id);
+
+                List<ProductoVendido> productosVendidos = ProductoVendidoData.ListarProductosVendidosPorIDVenta(id);
+
+                foreach (ProductoVendido productoVendido in productosVendidos)
+                {
+                    Producto producto = ProductoData.ObtenerProductos(productoVendido.IdProducto);
+                    producto.Stock += productoVendido.Stock;
+                    ProductoData.ModificarProductos(producto.Id, producto);
+                    ProductoVendidoData.EliminarProductoVendido(productoVendido.Id);
+                }
+
+                VentaData.EliminarVenta(id);
+
+                return Ok("Venta eliminada exitosamente");
+            }
+            catch (Exception ex)
+            {
+                return Conflict(new { message = ex.Message, status = HttpStatusCode.Conflict });
+            }
+        }
     }
 }

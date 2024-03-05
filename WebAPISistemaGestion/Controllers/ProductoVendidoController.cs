@@ -1,12 +1,29 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SistemaGestionEntities;
+using SistemaGestionData;
+using System.Net;
 
 namespace WebAPISistemaGestion.Controllers
 {
     public class ProductoVendidoController : Controller
     {
-        public IActionResult Index()
+        [HttpGet("{idUsuario}")]
+        public ActionResult<List<ProductoVendido>> TraerProductosVendidos(int idUsuario)
         {
-            return View();
+            if(idUsuario<0)
+            {
+                return BadRequest(new { message = "El id no puede ser negativo", status = HttpStatusCode.BadRequest });
+            }
+
+            try
+            {
+                ProductoVendidoData.ObtenerProductosVendidos(idUsuario);
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return Conflict(new { message = ex.Message, status = HttpStatusCode.Conflict});
+            }
         }
     }
 }

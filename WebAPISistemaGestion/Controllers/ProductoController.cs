@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SistemaGestionData;
 using SistemaGestionEntities;
+using System.Net;
 
 namespace WebAPISistemaGestion.Controllers
 {
@@ -11,7 +12,6 @@ namespace WebAPISistemaGestion.Controllers
         [HttpPost("crear")]
         public IActionResult CrearProducto([FromBody] Producto producto)
         {
-
             try
             {
                 if (producto == null || string.IsNullOrEmpty(producto.Descripcion) || producto.Costo <= 0 || producto.PrecioVenta <= 0 ||
@@ -29,7 +29,7 @@ namespace WebAPISistemaGestion.Controllers
             }
 
         }
-    
+
         [HttpPut("modificar/{id}")]
         public IActionResult ModificarProducto(int id, [FromBody] Producto producto)
         {
@@ -50,9 +50,13 @@ namespace WebAPISistemaGestion.Controllers
             }
         }
 
-        [HttpDelete ("eliminar/{id}")]
+        [HttpDelete("eliminar/{id}")]
         public IActionResult EliminarProducto(int id)
         {
+            if (id < 0)
+            {
+                return BadRequest(new { message = "El id no puede ser negativo", status = HttpStatusCode.BadRequest });
+            }
             try
             {
                 ProductoVendidoData.EliminarProductoVendido(id);
@@ -62,6 +66,20 @@ namespace WebAPISistemaGestion.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, $"Error al eliminar producto: {ex.Message}");
+            }
+        }
+
+        [HttpGet("traer")]
+        public IActionResult TraerProductos()
+        {
+            try
+            {
+                ProductoData.ListarProductos();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return Conflict(new { message = ex.Message, status = HttpStatusCode.Conflict });
             }
         }
     }

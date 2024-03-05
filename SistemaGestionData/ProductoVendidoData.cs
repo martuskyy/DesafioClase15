@@ -51,6 +51,39 @@ namespace SistemaGestionData
             }
         }
 
+        public static List<ProductoVendido> ListarProductosVendidosPorIDVenta(int idVenta)
+        {
+            try
+            {
+                List<ProductoVendido> productosVendidos = new List<ProductoVendido>();
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT * FROM ProductoVendido WHERE IdVenta = @idVenta;";
+                    SqlCommand sqlCommand = new SqlCommand(query, connection);
+                    sqlCommand.Parameters.AddWithValue("@idVenta", idVenta);
+                    connection.Open();
+
+                    SqlDataReader reader = sqlCommand.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        ProductoVendido productoVendido = new ProductoVendido();
+                        productoVendido.Id = Convert.ToInt32(reader["ID"]);
+                        productoVendido.IdProducto = Convert.ToInt32(reader["IdProducto"]);
+                        productoVendido.Stock = Convert.ToInt32(reader["Stock"]);
+                        productoVendido.IdVenta = Convert.ToInt32(reader["IdVenta"]);
+
+                        productosVendidos.Add(productoVendido);
+                    }
+                }
+                return productosVendidos;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los productos vendidos por ID de venta", ex);
+            }
+        }
+
         public static ProductoVendido ObtenerProductosVendidos(int id)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
