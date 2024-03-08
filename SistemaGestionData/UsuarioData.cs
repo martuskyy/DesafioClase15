@@ -3,7 +3,7 @@ using SistemaGestionEntities;
 
 namespace SistemaGestionData
 {
-    public static class UsuarioData
+    public class UsuarioData
     {
         private static string connectionString;
 

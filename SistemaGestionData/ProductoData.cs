@@ -8,7 +8,7 @@ using SistemaGestionEntities;
 
 namespace SistemaGestionData
 {
-    public static class ProductoData
+    public class ProductoData
     {
         private static string connectionString;
 

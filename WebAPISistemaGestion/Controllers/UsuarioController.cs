@@ -12,7 +12,7 @@ namespace WebAPISistemaGestion.Controllers
     {
         private static string connectionString = "Server=.; Database=master; Trusted_Connection=True;";
 
-        [HttpGet("iniciarSesion/{nombreUsuario}/{clave")]
+        [HttpGet("iniciarSesion/{nombreUsuario}/{clave}")]
         private IActionResult IniciarSesion(string nombreUsuario, string clave)
         {
             string query = "SELECT * FROM Usuarios WHERE NombreUsuario = @NombreUsuario AND Contrasena = @Contrasena";
