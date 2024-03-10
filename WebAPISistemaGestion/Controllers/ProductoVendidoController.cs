@@ -9,8 +9,8 @@ namespace WebAPISistemaGestion.Controllers
     [Route("api/[controller]")]
     public class ProductoVendidoController : Controller
     {
-        [HttpGet("obtenerVendidos/{idUsuario}")]
-        private ActionResult<List<ProductoVendido>> TraerProductosVendidos(int idUsuario)
+        [HttpGet("{idUsuario}")]
+        public ActionResult<List<ProductoVendido>> TraerProductosVendidos(int idUsuario)
         {
             if(idUsuario<0)
             {

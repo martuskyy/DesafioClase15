@@ -9,8 +9,8 @@ namespace WebAPISistemaGestion.Controllers
     [Route("api/[controller]")]
     public class ProductoController : Controller
     {
-        [HttpPost("crearProducto")]
-        private IActionResult CrearProducto([FromBody] Producto producto)
+        [HttpPost]
+        public IActionResult CrearProducto([FromBody] Producto producto)
         {
             try
             {
@@ -30,8 +30,8 @@ namespace WebAPISistemaGestion.Controllers
 
         }
 
-        [HttpPut("modificarProducto/{id}")]
-        private IActionResult ModificarProducto(int id, [FromBody] Producto producto)
+        [HttpPut("{id}")]
+        public IActionResult ModificarProducto(int id, [FromBody] Producto producto)
         {
             try
             {
@@ -50,8 +50,8 @@ namespace WebAPISistemaGestion.Controllers
             }
         }
 
-        [HttpDelete("eliminarProducto/{id}")]
-        private IActionResult EliminarProducto(int id)
+        [HttpDelete("{id}")]
+        public IActionResult EliminarProducto(int id)
         {
             if (id < 0)
             {
@@ -69,8 +69,8 @@ namespace WebAPISistemaGestion.Controllers
             }
         }
 
-        [HttpGet("traerProducto")]
-        private IActionResult TraerProductos()
+        [HttpGet]
+        public IActionResult TraerProductos()
         {
             try
             {

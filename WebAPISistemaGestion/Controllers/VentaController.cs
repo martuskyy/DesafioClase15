@@ -9,8 +9,8 @@ namespace WebAPISistemaGestion.Controllers
     [Route("api/[controller]")]
     public class VentaController : Controller
     {
-        [HttpGet("traerVenta")]
-        private IActionResult TraerVentas()
+        [HttpGet]
+        public IActionResult TraerVentas()
         {
             try
             {
@@ -23,8 +23,8 @@ namespace WebAPISistemaGestion.Controllers
             }
         }
 
-        [HttpPost("crearVenta/{idUsuario}")]
-        private IActionResult CrearVenta(int idUsuario, [FromBody] List<Producto> productos)
+        [HttpPost("{idUsuario}")]
+        public IActionResult CrearVenta(int idUsuario, [FromBody] List<Producto> productos)
         {
             if (productos.Count == 0)
             {
@@ -51,8 +51,8 @@ namespace WebAPISistemaGestion.Controllers
             }
         }
 
-        [HttpDelete("eliminarVenta/{id}")]
-        private IActionResult EliminarVenta(int id)
+        [HttpDelete("{id}")]
+        public IActionResult EliminarVenta(int id)
         {
             if(id<0)
             {
