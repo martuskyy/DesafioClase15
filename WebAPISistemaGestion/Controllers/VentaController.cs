@@ -24,26 +24,17 @@ namespace WebAPISistemaGestion.Controllers
         }
 
         [HttpPost("{idUsuario}")]
-        public IActionResult CrearVenta(int idUsuario, [FromBody] List<Producto> productos)
+        public IActionResult CrearVenta(int idUsuario, [FromBody] Venta venta)
         {
-            if (productos.Count == 0)
-            {
-                return BadRequest(new { mensaje = "No se puede crear la venta por falta de productos seleccionados", status = HttpStatusCode.BadRequest });
-            }
-
             try
             {
-                VentaData venta = new VentaData();
-                bool ventaAgregada = venta.AgregarNuevaVenta(idUsuario, productos);
+                if (venta == null || string.IsNullOrEmpty(venta.Comentarios) || venta.Id < 0 || venta.IdUsuario <= 0)
+                {
+                    return BadRequest("Datos de venta incompletos, imposible crear la misma");
+                }
 
-                if (ventaAgregada)
-                {
-                    return Created(nameof(CrearVenta), new { mensaje = "Venta realizada correctamente", status = HttpStatusCode.Created, nuevaVenta = productos });
-                }
-                else
-                {
-                    return StatusCode((int)HttpStatusCode.InternalServerError, new { mensaje = "Error al agregar la venta", status = HttpStatusCode.InternalServerError });
-                }
+                VentaData.CrearVenta(venta);
+                return Ok("Venta creada exitosamente");
             }
             catch (Exception ex)
             {
@@ -61,18 +52,6 @@ namespace WebAPISistemaGestion.Controllers
 
             try
             {
-                Venta venta = VentaData.ObtenerVentas(id);
-
-                List<ProductoVendido> productosVendidos = ProductoVendidoData.ListarProductosVendidosPorIDVenta(id);
-
-                foreach (ProductoVendido productoVendido in productosVendidos)
-                {
-                    Producto producto = ProductoData.ObtenerProductos(productoVendido.IdProducto);
-                    producto.Stock += productoVendido.Stock;
-                    ProductoData.ModificarProductos(producto.Id, producto);
-                    ProductoVendidoData.EliminarProductoVendido(productoVendido.Id);
-                }
-
                 VentaData.EliminarVenta(id);
 
                 return Ok("Venta eliminada exitosamente");
