@@ -25,7 +25,7 @@ namespace WebAPISistemaGestion.Controllers
             }
             catch (Exception ex)
             {
-                return Conflict(new { message = ex.Message, status = HttpStatusCode.Conflict });
+                return StatusCode(500, $"Error al traer productos vendidos: {ex.Message}");
             }
         }
     }

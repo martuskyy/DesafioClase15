@@ -40,8 +40,8 @@ namespace WebAPISistemaGestion.Controllers
                     }
                     catch (Exception ex)
                     {
-                        return StatusCode(500, $"Error: {ex.Message}");
-                    }                    
+                        return StatusCode(500, $"Error al iniciar sesion: {ex.Message}");
+                    }
                 }
             }
         }
@@ -84,7 +84,7 @@ namespace WebAPISistemaGestion.Controllers
                     }
                     catch (Exception ex)
                     {
-                        return StatusCode(500, $"Error: {ex.Message}");
+                        return StatusCode(500, $"Error al traer usuario: {ex.Message}");
                     }
                 }
             }

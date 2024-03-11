@@ -19,7 +19,7 @@ namespace WebAPISistemaGestion.Controllers
             }
             catch (Exception ex)
             {
-                return Conflict(new { message = ex.Message, status = HttpStatusCode.Conflict });
+                return StatusCode(500, $"Error al traer las ventas: {ex.Message}");
             }
         }
 
@@ -38,7 +38,7 @@ namespace WebAPISistemaGestion.Controllers
             }
             catch (Exception ex)
             {
-                return Conflict(new { message = ex.Message, status = HttpStatusCode.Conflict });
+                return StatusCode(500, $"Error al crear venta: {ex.Message}");
             }
         }
 
@@ -58,7 +58,7 @@ namespace WebAPISistemaGestion.Controllers
             }
             catch (Exception ex)
             {
-                return Conflict(new { message = ex.Message, status = HttpStatusCode.Conflict });
+                return StatusCode(500, $"Error al eliminar venta: {ex.Message}");
             }
         }
     }
