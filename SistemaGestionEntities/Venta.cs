@@ -9,22 +9,22 @@ namespace SistemaGestionEntities
     public class Venta
     {
         private int _id;
-        private string _comentario;
+        private string _comentarios;
         private int _idUsuario;
 
         public Venta()
         {
         }
 
-        public Venta(int id, string comentario, int idUsuario)
+        public Venta(int id, string comentarios, int idUsuario)
         {
             _id = id;
-            _comentario = comentario;
+            _comentarios = comentarios;
             _idUsuario = idUsuario;
         }
 
         public int Id { get { return _id; } set { _id = value; } }
-        public string Comentario { get { return _comentario; } set { _comentario = value; } }
+        public string Comentarios { get { return _comentarios; } set { _comentarios = value; } }
         public int IdUsuario { get { return _idUsuario; } set { _idUsuario = value; } }
     }
 }

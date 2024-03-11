@@ -14,7 +14,7 @@ namespace WebAPISistemaGestion.Controllers
         {
             try
             {
-                if (producto == null || string.IsNullOrEmpty(producto.Descripcion) || producto.Costo <= 0 || producto.PrecioVenta <= 0 ||
+                if (producto == null || string.IsNullOrEmpty(producto.Descripciones) || producto.Costo <= 0 || producto.PrecioVenta <= 0 ||
                     producto.Stock < 0 || producto.IdUsuario <= 0)
                 {
                     return BadRequest("Datos de producto no válidos, imposible crear el mismo");
@@ -74,8 +74,9 @@ namespace WebAPISistemaGestion.Controllers
         {
             try
             {
-                ProductoData.ListarProductos();
-                return Ok();
+                List<Producto> productos = ProductoData.ListarProductos();
+
+                return Ok(productos);
             }
             catch (Exception ex)
             {

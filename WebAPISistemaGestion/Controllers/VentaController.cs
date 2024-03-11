@@ -14,8 +14,8 @@ namespace WebAPISistemaGestion.Controllers
         {
             try
             {
-                VentaData.ListarVentas();
-                return Ok();
+                List<Venta> ventas = VentaData.ListarVentas();
+                return Ok(ventas);
             }
             catch (Exception ex)
             {

@@ -34,7 +34,7 @@ namespace SistemaGestionData
                     {
                         Venta venta = new Venta();
                         venta.Id = Convert.ToInt32(reader["ID"]);
-                        venta.Comentario = reader["Comentario"].ToString();
+                        venta.Comentarios = reader["Comentarios"].ToString();
                         venta.IdUsuario = Convert.ToInt32(reader["IdUsuario"]);
 
                         listadoDeVentas.Add(venta);
@@ -66,7 +66,7 @@ namespace SistemaGestionData
                 {
                     Venta venta = new Venta();
                     venta.Id = Convert.ToInt32(reader["ID"]);
-                    venta.Comentario = reader["Comentario"].ToString();
+                    venta.Comentarios = reader["Comentarios"].ToString();
                     venta.IdUsuario = Convert.ToInt32(reader["IdUsuario"]);
 
                     return venta;
@@ -79,11 +79,11 @@ namespace SistemaGestionData
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "INSERT INTO Venta (Comentario, IdUsuario) values (@comentario, @idUsuario); select @@IDENTITY as ID";
+                string query = "INSERT INTO Venta (Comentarios, IdUsuario) values (@comentarios, @idUsuario); select @@IDENTITY as ID";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
-                command.Parameters.AddWithValue("comentario", venta.Comentario);
+                command.Parameters.AddWithValue("comentarios", venta.Comentarios);
                 command.Parameters.AddWithValue("idUsuario", venta.IdUsuario);
                 connection.Open();
                 command.ExecuteNonQuery();
@@ -99,7 +99,7 @@ namespace SistemaGestionData
                 SqlCommand command = new SqlCommand(query, connection);
 
                 command.Parameters.AddWithValue("id", id);
-                command.Parameters.AddWithValue("comentario", venta.Comentario);
+                command.Parameters.AddWithValue("comentario", venta.Comentarios);
                 command.Parameters.AddWithValue("idUsuario", venta.IdUsuario);
                 connection.Open();
                 command.ExecuteNonQuery();
@@ -121,7 +121,7 @@ namespace SistemaGestionData
 
         public bool AgregarNuevaVenta(int idUsuario, List<Producto> productos)
         {
-            string comentarios = string.Join("-", productos.Select(p => p.Descripcion));
+            string comentarios = string.Join("-", productos.Select(p => p.Descripciones));
 
             int ventaId;
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -129,8 +129,8 @@ namespace SistemaGestionData
                 connection.Open();
                 using (SqlCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = "INSERT INTO Venta (Comentario, IdUsuario) VALUES (@comentario, @idUsuario); SELECT SCOPE_IDENTITY();";
-                    command.Parameters.AddWithValue("@comentario", comentarios);
+                    command.CommandText = "INSERT INTO Venta (Comentarios, IdUsuario) VALUES (@comentarios, @idUsuario); SELECT SCOPE_IDENTITY();";
+                    command.Parameters.AddWithValue("@comentarios", comentarios);
                     command.Parameters.AddWithValue("@idUsuario", idUsuario);
                     ventaId = Convert.ToInt32(command.ExecuteScalar());
                 }

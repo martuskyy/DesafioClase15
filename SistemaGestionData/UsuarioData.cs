@@ -99,8 +99,8 @@ namespace SistemaGestionData
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "UPDATE Usuario SET Nombre = @nombre,Apellido = @apellido,NombreUsuario = @nombreUsuario,Contraseña= @clave,Mail=@email" +
-                               "WHERE id = @id ";
+                string query = "UPDATE Usuario SET Nombre = @nombre,Apellido = @apellido,NombreUsuario = @nombreUsuario,Contraseña= @clave,Mail=@email " +
+                               " WHERE id = @id ";
 
                 SqlCommand command = new SqlCommand(query, connection);
 

@@ -34,7 +34,7 @@ namespace SistemaGestionData
                     {
                         Producto producto = new Producto();
                         producto.Id = Convert.ToInt32(reader["ID"]);
-                        producto.Descripcion = reader["Descripcion"].ToString();
+                        producto.Descripciones = reader["Descripciones"].ToString();
                         producto.Costo = Convert.ToInt64(reader["Costo"]);
                         producto.PrecioVenta = Convert.ToInt64(reader["PrecioVenta"]);
                         producto.Stock = Convert.ToInt32(reader["Stock"]);
@@ -69,7 +69,7 @@ namespace SistemaGestionData
                 {
                     Producto producto = new Producto();
                     producto.Id = Convert.ToInt32(reader["ID"]);
-                    producto.Descripcion = reader["Descripcion"].ToString();
+                    producto.Descripciones = reader["Descripciones"].ToString();
                     producto.Costo = Convert.ToInt64(reader["Costo"]);
                     producto.PrecioVenta = Convert.ToInt64(reader["PrecioVenta"]);
                     producto.Stock = Convert.ToInt32(reader["Stock"]);
@@ -86,12 +86,12 @@ namespace SistemaGestionData
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "INSERT INTO Producto (Descripcion, Costo, PrecioVenta, Stock, IdUsuario)" +
-                               "values (@descripcion,@costo,@precioVenta,@stock,@idUsuario); select @@IDENTITY as ID";
+                string query = "INSERT INTO Producto (Descripciones, Costo, PrecioVenta, Stock, IdUsuario)" +
+                               "values (@descripciones,@costo,@precioVenta,@stock,@idUsuario); select @@IDENTITY as ID";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
-                command.Parameters.AddWithValue("descripcion", producto.Descripcion);
+                command.Parameters.AddWithValue("descripciones", producto.Descripciones);
                 command.Parameters.AddWithValue("costo", producto.Costo);
                 command.Parameters.AddWithValue("precioVenta", producto.PrecioVenta);
                 command.Parameters.AddWithValue("stock", producto.Stock);
@@ -105,13 +105,13 @@ namespace SistemaGestionData
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "UPDATE Producto SET Descripcion=@descripcion, Costo=@costo, PrecioVenta=@precioVenta, Stock=@stock, IdUsuario=@idUsuario" +
-                               "WHERE id = @id ";
+                string query = "UPDATE Producto SET Descripciones=@descripciones, Costo=@costo, PrecioVenta=@precioVenta, Stock=@stock, IdUsuario=@idUsuario " +
+                               " WHERE id = @id ";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
                 command.Parameters.AddWithValue("id", id);
-                command.Parameters.AddWithValue("descripcion", producto.Descripcion);
+                command.Parameters.AddWithValue("descripciones", producto.Descripciones);
                 command.Parameters.AddWithValue("costo", producto.Costo);
                 command.Parameters.AddWithValue("precioVenta", producto.PrecioVenta);
                 command.Parameters.AddWithValue("stock", producto.Stock);

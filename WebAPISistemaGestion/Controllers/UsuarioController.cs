@@ -12,17 +12,17 @@ namespace WebAPISistemaGestion.Controllers
     {
         private static string connectionString = "Server=.; Database=master; Trusted_Connection=True;";
 
-        [HttpGet("{nombreUsuario}/{clave}")]
-        public IActionResult IniciarSesion(string nombreUsuario, string clave)
+        [HttpGet("{nombreUsuario}/{contraseña}")]
+        public IActionResult IniciarSesion(string nombreUsuario, string contraseña)
         {
-            string query = "SELECT * FROM Usuarios WHERE NombreUsuario = @NombreUsuario AND Contrasena = @Contrasena";
+            string query = "SELECT * FROM Usuario WHERE NombreUsuario = @NombreUsuario AND Contraseña = @Contraseña";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@NombreUsuario", nombreUsuario);
-                    command.Parameters.AddWithValue("@Clave", clave);
+                    command.Parameters.AddWithValue("@Contraseña", contraseña);
                     try
                     {
                         connection.Open();
@@ -49,7 +49,7 @@ namespace WebAPISistemaGestion.Controllers
         [HttpGet("{nombreUsuario}")]
         public IActionResult TraerUsuario(string nombreUsuario)
         {
-            string query = "SELECT * FROM Usuarios WHERE NombreUsuario = @NombreUsuario";
+            string query = "SELECT * FROM Usuario WHERE NombreUsuario = @NombreUsuario";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -70,8 +70,8 @@ namespace WebAPISistemaGestion.Controllers
                                     Id = reader["Id"],
                                     Nombre = reader["Nombre"],
                                     Apellido = reader["Apellido"],
-                                    Mail = reader["Mail"],
-                                    Clave = reader["Clave"]
+                                    Clave = reader["Contraseña"],
+                                    Mail = reader["Mail"]                                    
                                 };
 
                                 return Ok(usuario);

@@ -9,7 +9,7 @@ namespace SistemaGestionEntities
     public class Producto
     {
         private int _id;
-        private string _descripcion;
+        private string _descripciones;
         private double _costo;
         private double _precioVenta;
         private int _stock;
@@ -19,10 +19,10 @@ namespace SistemaGestionEntities
         {
         }
 
-        public Producto(int id, string descripcion, double costo, double precioVenta, int stock, int idUsuario)
+        public Producto(int id, string descripciones, double costo, double precioVenta, int stock, int idUsuario)
         {
             _id = id;
-            _descripcion = descripcion;
+            _descripciones = descripciones;
             _costo = costo;
             _precioVenta = precioVenta;
             _stock = stock;
@@ -30,7 +30,7 @@ namespace SistemaGestionEntities
         }
 
         public int Id { get { return _id; } set { _id = value; } }
-        public string Descripcion { get { return _descripcion; } set { _descripcion = value; } }
+        public string Descripciones { get { return _descripciones; } set { _descripciones = value; } }
         public double Costo { get { return _costo; } set { _costo = value; } }
         public double PrecioVenta { get { return _precioVenta; } set { _precioVenta = value; } }
         public int Stock { get { return _stock; } set { _stock = value; } }

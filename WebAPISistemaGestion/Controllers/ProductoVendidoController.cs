@@ -12,19 +12,20 @@ namespace WebAPISistemaGestion.Controllers
         [HttpGet("{idUsuario}")]
         public ActionResult<List<ProductoVendido>> TraerProductosVendidos(int idUsuario)
         {
-            if(idUsuario<0)
+            if (idUsuario < 0)
             {
                 return BadRequest(new { message = "El id no puede ser negativo", status = HttpStatusCode.BadRequest });
             }
 
             try
             {
-                ProductoVendidoData.ObtenerProductosVendidos(idUsuario);
-                return Ok();
+                List<ProductoVendido> productosVendidos = ProductoVendidoData.ListarProductosVendidos();
+
+                return Ok(productosVendidos);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return Conflict(new { message = ex.Message, status = HttpStatusCode.Conflict});
+                return Conflict(new { message = ex.Message, status = HttpStatusCode.Conflict });
             }
         }
     }
